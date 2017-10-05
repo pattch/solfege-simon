@@ -1,0 +1,154 @@
+$nc: #444;
+
+span {
+  box-sizing: border-box;
+  display:flex;
+  border: 0;
+  margin: 5px;
+  padding: 0;
+  color: $nc;
+
+  span {
+    border-radius: 0;
+
+    &.spacer {
+      background: initial;
+      border: none !important;
+    }
+  }
+
+  &.note {
+    width: 64px;
+    height:64px;
+
+    &.quarter {
+      &::after {
+        content: " ";
+        display: initial;
+        position: relative;
+        left: 28px;
+        top: 0;
+        width: 8px;
+        height: 64px;
+        background-color: $nc;
+      }
+    }
+
+    &.barred {
+      span {
+        border-top: 8px solid $nc;
+        margin: 0;
+      }
+
+      // One Sixteenth
+      .one {
+        width: 16px;
+
+        &.left {
+          border-left: 8px solid $nc;
+
+          &::after {
+            content: " ";
+            position:relative;
+            top: 8px;
+            left: 0px;
+            width: 0px;
+            height: 8px;
+            border-right: 12px solid $nc;
+            background: $nc;
+          }
+        }
+
+        &.mid {
+          &::before {
+            content: " ";
+            position:relative;
+            margin: 0;
+            top: 8px;
+            left: -4px;
+            width: 8px;
+            height: 8px;
+            z-index: 20;
+            background: $nc;
+          }
+
+          &::after {
+            content: " ";
+            margin: 0;
+            // box-sizing: content-box;
+            position:relative;
+            top: 0px;
+            left: -4px;
+            width:8px;
+            height: 56px;
+            z-index:5;
+            background: $nc;
+          }
+        }
+
+        &.right {
+          border-right: 8px solid $nc;
+
+          &::before {
+            content: " ";
+            position:relative;
+            top: 8px;
+            left: -4px;
+            width: 0px;
+            height: 8px;
+            border-right: 12px solid $nc;
+            background: $nc;
+          }
+        }
+      }
+
+      .two {
+        width: 32px;
+
+        &.left {
+          border-left:8px solid $nc;
+        }
+
+        &.right {
+          border-right:8px solid $nc;
+        }
+      }
+
+      // Three Sixteenths
+      .three {
+        width: 48px;
+        // background-color: #f44;
+
+        &.left {
+          border-left: 8px solid $nc;
+
+          &::after {
+            content: " ";
+            position:relative;
+            top: 44px;
+            left: 4px;
+            width:8px;
+            height: 8px;
+            border-radius: 4px;
+            background: $nc;
+          }
+        }
+
+        &.right {
+          border-right: 8px solid $nc;
+
+          &::after {
+            content: " ";
+            position:relative;
+            top: 44px;
+            left: 28px;
+            width:8px;
+            height: 8px;
+            border-radius: 4px;
+            background: $nc;
+          }
+        }
+      }
+    }
+  }
+}
