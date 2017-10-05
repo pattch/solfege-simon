@@ -221,22 +221,59 @@ var nums = [
         1
     ]
 ];
+var VEXTAB_USE_SVG = true
+
 
 function main() {
   populateWords();
 }
 
 function populateWords() {
-  var container = $('div.notes-container');
+  var container = $('div.vex-container');
   if(words.length != nums.length) {
     console.log("ERROR! WORD LIST IS NOT THE SAME SIZE AS NUMBERS");
     return;
   }
 
   for(var i = 0; i < words.length; i++) {
-    var note = generateNote(words[i],nums[i]);
-    container.append(note);
+    // var note = generateNote(words[i],nums[i]);
+    // container.append(note);
+    var vex = generateVex(words[i],nums[i]);
+    container.append(vex);
   }
+}
+
+// TODO: Add support for rests
+function generateVex(wordname,lengths) {
+  var opener = '<div class="' + wordname + ' vex-tabdiv">\noptions scale=1.5 width=100\ntabstave notation=true tablature=false clef=none\n',
+      closer = '\n</div>';
+  var notation = 'notes ';
+  for(var i = 0; i < lengths.length; i++) {
+    switch(lengths[i]) {
+      case 1:
+        notation += ':16';
+        break;
+      case 2:
+        notation += ':8';
+        break;
+      case 3:
+        notation += ':8d';
+        break;
+      default:
+        notation += ':q'
+    }
+
+    if(i != 0)
+      notation += ':'
+    if(i != lengths.length - 1)
+      notation += ' C- ';
+    else
+      notation += ' C ';
+  }
+
+  notation += ' / 4'
+
+  return notation + opener + notation + closer;
 }
 
 function generateNote(word_name,lengths) {
