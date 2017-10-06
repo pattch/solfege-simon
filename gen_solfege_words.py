@@ -69,16 +69,40 @@ for part in solf_parts:
 
 solf = [x.replace(' ','_') for x in solf]
 
-if print_words:
-    print(json.dumps(solf, indent=4, separators=(',', ': ')))
-    for combo in solf[manual_len:]:
-        parts = combo.split('_')
-        part_nums = []
-        for part in parts:
-            part_nums.extend(solf_nums[part])
-        solf_lens.append(part_nums)
+def makeBeat(combo):
+    parts = combo.split('_')
 
-    print(json.dumps(solf_lens, indent=4, separators=(',', ': ')))
+    beat_lengths = []
+    beat_rests = []
+    for part in parts:
+        part_lengths = solf_nums[part]
+        part_rests = [('s' in part)] * len(part_lengths)
+        beat_lengths.extend(part_lengths)
+        beat_rests.extend(part_rests)
+
+    beat = {
+        "name": combo,
+        "lengths": beat_lengths,
+        "rests": beat_rests
+    }
+
+    return beat
+
+# TODO: Include manually set words etc
+if print_words:
+    beats = [makeBeat(combo) for combo in solf[manual_len:]]
+    print(json.dumps(beats, indent=4, separators=(',',': ')))
+
+    # print(json.dumps(solf, indent=4, separators=(',', ': ')))
+    # for combo in solf[manual_len:]:
+    #     parts = combo.split('_')
+    #     part_nums = []
+    #     for part in parts:
+    #         part_nums.extend(solf_nums[part])
+    #     solf_lens.append(part_nums)
+    #
+    # print(json.dumps(solf_lens, indent=4, separators=(',', ': ')))
+
 else:
     for solf_word in solf:
         subprocess.check_output(['say','-v','Samantha','"' + solf_word + '"','-o',solf_word + '.aiff'])
